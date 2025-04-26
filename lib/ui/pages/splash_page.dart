@@ -1,0 +1,26 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:insta/ui/const/route.dart';
+import 'package:insta/ui/pages/auth/login_page.dart';
+import 'package:insta/ui/pages/main/main_page.dart';
+
+class SplashPage extends StatelessWidget {
+  const SplashPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkAuth(context);
+    });
+    return Scaffold();
+  }
+
+  checkAuth(context) async{
+    
+    if (FirebaseAuth.instance.currentUser == null) {
+      MRoute.push(context, LoginPage());
+    } else {
+      MRoute.push(context, MainPage());
+    }
+  }
+}
